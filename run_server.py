@@ -15,8 +15,15 @@ httpd = socketserver.TCPServer(("0.0.0.0", PORT), Handler)
 PORT = httpd.server_address[1]  # Get the actual assigned port
 
 with httpd:
-    hostname = socket.gethostname()
-    local_ip = socket.gethostbyname(hostname)
+    # Get the network IP address
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        local_ip = s.getsockname()[0]
+        s.close()
+    except:
+        local_ip = "Unable to determine network IP"
+
     print(f"Server started successfully!")
     print(f"Access locally at: http://localhost:{PORT}")
     print(f"Access from other devices on the same network at: http://{local_ip}:{PORT}")

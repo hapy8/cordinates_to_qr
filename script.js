@@ -27,17 +27,38 @@ document.getElementById('coord-form').addEventListener('submit', function(event)
     const qrContainer = document.getElementById('qrcode');
     qrContainer.innerHTML = '';
 
+    // Get QR code colors based on theme
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const qrDark = isDark ? '#ffffff' : '#000000';
+    const qrLight = isDark ? '#000000' : '#ffffff';
+
     // Generate new QR code
     new QRCode(qrContainer, {
         text: mapsUrl,
         width: 256,
         height: 256,
-        colorDark: '#000000',
-        colorLight: '#ffffff',
+        colorDark: qrDark,
+        colorLight: qrLight,
         correctLevel: QRCode.CorrectLevel.H
     });
 
     // Show QR container
     document.getElementById('qr-container').classList.add('show');
     document.getElementById('qr-text').textContent = 'Scan this QR code to view the location on Google Maps.';
+});
+
+// Theme toggle functionality
+const themeToggle = document.getElementById('theme-toggle');
+const currentTheme = localStorage.getItem('theme') || 'light';
+
+document.documentElement.setAttribute('data-theme', currentTheme);
+themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
 });

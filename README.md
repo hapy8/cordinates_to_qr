@@ -6,7 +6,8 @@ A simple web application that allows users to input latitude and longitude coord
 
 - Input validation for latitude (-90 to 90) and longitude (-180 to 180)
 - Generates QR code using the QRCode.js library
-- Responsive design with clean, modern UI
+- Responsive design with clean, modern UI inspired by Apple
+- Dark mode toggle with smooth transitions and persistent preference
 - No server-side dependencies; runs entirely in the browser (except for serving files)
 
 ## Technologies Used
@@ -34,6 +35,7 @@ The application is now running. You can access it from the same device or other 
 2. Click the "Generate QR Code" button.
 3. A QR code will be displayed below the form.
 4. Scan the QR code with a QR code reader app to open the location in Google Maps.
+5. Toggle between light and dark mode using the button in the top right corner of the container.
 
 ## Files
 
